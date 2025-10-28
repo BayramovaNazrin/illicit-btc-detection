@@ -4,7 +4,6 @@ def load_data():
     import matplotlib.pyplot as plt
     import seaborn as sns
     import numpy as np
-    %matplotlib inline
 
     features = '/content/drive/MyDrive/anomaly_detection/elliptic_txs_features.csv'
     edges = '/content/drive/MyDrive/anomaly_detection/elliptic_txs_edgelist.csv'
