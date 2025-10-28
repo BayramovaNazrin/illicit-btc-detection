@@ -10,7 +10,7 @@ def load_data():
     classes = '/content/drive/MyDrive/anomaly_detection/elliptic_txs_classes.csv'
     features = pd.read_csv(features, header=None)
     edges = pd.read_csv(edges)
-    classes = pd.read_csv(classes, header=None)
+    classes = pd.read_csv(classes, header=0)
     num_cols = features.shape[1]
     feature_cols = ['txId', 'time_step'] + [f'feature_{i}' for i in range(1, num_cols - 1)]
     features.columns = feature_cols
