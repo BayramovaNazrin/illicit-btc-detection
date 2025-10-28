@@ -23,4 +23,4 @@ def load_data():
 
     merged_df = features.merge(classes, on='txId', how='left')
     merged_df['class'] = pd.to_numeric(merged_df['class'], errors='coerce')
-    return features, edges, merged_df
+    return features, edges, classes, merged_df
