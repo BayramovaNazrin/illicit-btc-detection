@@ -1,65 +1,27 @@
-{
-  "nbformat": 4,
-  "nbformat_minor": 0,
-  "metadata": {
-    "colab": {
-      "provenance": [],
-      "authorship_tag": "ABX9TyNrIDtJPjxrBjQVSnGtDsOw",
-      "include_colab_link": true
-    },
-    "kernelspec": {
-      "name": "python3",
-      "display_name": "Python 3"
-    },
-    "language_info": {
-      "name": "python"
-    }
-  },
-  "cells": [
-    {
-      "cell_type": "markdown",
-      "metadata": {
-        "id": "view-in-github",
-        "colab_type": "text"
-      },
-      "source": [
-        "<a href=\"https://colab.research.google.com/github/BayramovaNazrin/test1/blob/main/load_data.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": null,
-      "metadata": {
-        "id": "9r2-041RIvyo"
-      },
-      "outputs": [],
-      "source": [
-        "import pandas as pd\n",
-        "import matplotlib.pyplot as plt\n",
-        "import seaborn as sns\n",
-        "import numpy as np\n",
-        "%matplotlib inline\n",
-        "\n",
-        "features = '/content/drive/MyDrive/anomaly_detection/elliptic_txs_features.csv'\n",
-        "edges = '/content/drive/MyDrive/anomaly_detection/elliptic_txs_edgelist.csv'\n",
-        "classes = '/content/drive/MyDrive/anomaly_detection/elliptic_txs_classes.csv'\n",
-        "features = pd.read_csv(features, header=None)\n",
-        "edges = pd.read_csv(edges)\n",
-        "classes = pd.read_csv(classes, header=None)\n",
-        "num_cols = features.shape[1]\n",
-        "feature_cols = ['txId', 'time_step'] + [f'feature_{i}' for i in range(1, num_cols - 1)]\n",
-        "features.columns = feature_cols\n",
-        "classes.columns = ['txId', 'class']\n",
-        "classes['class'] = classes['class'].astype(str).str.strip().replace({  'unknown': 3})\n",
-        "\n",
-        "features['txId'] = features['txId'].astype(str)\n",
-        "classes['txId'] = classes['txId'].astype(str)\n",
-        "\n",
-        "\n",
-        "merged_df = features.merge(classes, on='txId', how='left')\n",
-        "merged_df['class'] = pd.to_numeric(merged_df['class'], errors='coerce')\n",
-        "\n"
-      ]
-    }
-  ]
-}
+def load_data():
+
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    import numpy as np
+    %matplotlib inline
+
+    features = '/content/drive/MyDrive/anomaly_detection/elliptic_txs_features.csv'
+    edges = '/content/drive/MyDrive/anomaly_detection/elliptic_txs_edgelist.csv'
+    classes = '/content/drive/MyDrive/anomaly_detection/elliptic_txs_classes.csv'
+    features = pd.read_csv(features, header=None)
+    edges = pd.read_csv(edges)
+    classes = pd.read_csv(classes, header=None)
+    num_cols = features.shape[1]
+    feature_cols = ['txId', 'time_step'] + [f'feature_{i}' for i in range(1, num_cols - 1)]
+    features.columns = feature_cols
+    classes.columns = ['txId', 'class']
+    classes['class'] = classes['class'].astype(str).str.strip().replace({  'unknown': 3})
+
+    features['txId'] = features['txId'].astype(str)
+    classes['txId'] = classes['txId'].astype(str)
+
+
+    merged_df = features.merge(classes, on='txId', how='left')
+    merged_df['class'] = pd.to_numeric(merged_df['class'], errors='coerce')
+    return features, edges, merged_df
